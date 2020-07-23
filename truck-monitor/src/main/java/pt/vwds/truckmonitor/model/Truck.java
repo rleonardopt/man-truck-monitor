@@ -1,30 +1,66 @@
 package pt.vwds.truckmonitor.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "trucks")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = Truck.class)
 public class Truck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @ApiModelProperty(position = 1)
     private Long id;
-    private String vehicle_type;
-    private String licence_plate;
+
+    @Column(name = "vehicleType")
+    @ApiModelProperty(position = 2)
+    private String vehicleType;
+
+    @Column(name = "licensePlate", unique = true)
+    @ApiModelProperty(position = 3)
+    private String licensePlate;
+
+    @Column(name = "make")
+    @ApiModelProperty(position = 4)
     private String make;
+
+    @Column(name = "model")
+    @ApiModelProperty(position = 5)
     private String model;
+
+    @Column(name = "series")
+    @ApiModelProperty(position = 6)
     private String series;
 
+    @OneToMany(
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.EAGER)
+    @JoinColumn(name = "truck_id")
+    @ApiModelProperty(position = 7)
+    private List<TruckLocation> truckLocations;
+
     public Truck() {
+
     }
 
-    public Truck(Long id, String vehicle_type, String licence_plate, String make, String model, String series) {
-        this.id = id;
-        this.vehicle_type = vehicle_type;
-        this.licence_plate = licence_plate;
+    public Truck(Long id, String vehicleType, String licensePlate, String make, String model, String series, List<TruckLocation> truckLocations) {
+        this.vehicleType = vehicleType;
+        this.licensePlate = licensePlate;
         this.make = make;
         this.model = model;
         this.series = series;
+        this.truckLocations = truckLocations;
     }
 
     public Long getId() {
@@ -35,20 +71,20 @@ public class Truck {
         this.id = id;
     }
 
-    public String getVehicle_type() {
-        return vehicle_type;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicle_type(String vehicle_type) {
-        this.vehicle_type = vehicle_type;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
-    public String getLicence_plate() {
-        return licence_plate;
+    public String getLicensePlate() {
+        return licensePlate;
     }
 
-    public void setLicence_plate(String licence_plate) {
-        this.licence_plate = licence_plate;
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public String getMake() {
@@ -73,5 +109,20 @@ public class Truck {
 
     public void setSeries(String series) {
         this.series = series;
+    }
+
+    public List<TruckLocation> getTruckLocations() {
+        return truckLocations;
+    }
+
+    public void setTruckLocations(List<TruckLocation> truckLocations) {
+        this.truckLocations = truckLocations;
+    }
+
+    public void addTruckLocation(TruckLocation location) {
+        if (Objects.isNull(truckLocations)) {
+            truckLocations = new ArrayList<>();
+        }
+        truckLocations.add(location);
     }
 }

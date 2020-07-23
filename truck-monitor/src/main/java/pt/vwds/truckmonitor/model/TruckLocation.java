@@ -1,21 +1,37 @@
 package pt.vwds.truckmonitor.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "trucks_location")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = TruckLocation.class)
 public class TruckLocation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @ApiModelProperty(position = 1)
     private Long id;
-    private long gps_longitude;
-    private long gps_latitude;
 
-    public TruckLocation(Long id, long gps_longitude, long gps_latitude) {
-        this.id = id;
-        this.gps_longitude = gps_longitude;
-        this.gps_latitude = gps_latitude;
+    @Column(name = "gpsLongitude")
+    @ApiModelProperty(position = 2)
+    private double gpsLongitude;
+
+    @Column(name = "gpsLatitude")
+    @ApiModelProperty(position = 2)
+    private double gpsLatitude;
+
+    public TruckLocation() {}
+
+    public TruckLocation(Long id, double gpsLongitude, double gpsLatitude) {
+        this.gpsLongitude = gpsLongitude;
+        this.gpsLatitude = gpsLatitude;
     }
 
     public Long getId() {
@@ -26,19 +42,19 @@ public class TruckLocation {
         this.id = id;
     }
 
-    public long getGps_longitude() {
-        return gps_longitude;
+    public double getGpsLongitude() {
+        return gpsLongitude;
     }
 
-    public void setGps_longitude(long gps_longitude) {
-        this.gps_longitude = gps_longitude;
+    public void setGpsLongitude(double gpsLongitude) {
+        this.gpsLongitude = gpsLongitude;
     }
 
-    public long getGps_latitude() {
-        return gps_latitude;
+    public double getGpsLatitude() {
+        return gpsLatitude;
     }
 
-    public void setGps_latitude(long gps_latitude) {
-        this.gps_latitude = gps_latitude;
+    public void setGpsLatitude(double gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
     }
 }
