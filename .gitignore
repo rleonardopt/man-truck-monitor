@@ -108,3 +108,4 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,java-web,code,intellij+iml
+truck-monitor-ui/node_modules/
