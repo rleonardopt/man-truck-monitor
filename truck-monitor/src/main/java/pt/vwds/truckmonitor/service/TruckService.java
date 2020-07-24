@@ -13,7 +13,7 @@ public interface TruckService {
 
     Optional<Truck> getTruckById(Long id);
 
-    Optional<Truck> getTruckByLicensePlate(String license);
+    Optional<Truck> getTruckByLicensePlate(String licensePlate);
 
     Truck saveNewTruck(TruckDTO truckDTO);
 

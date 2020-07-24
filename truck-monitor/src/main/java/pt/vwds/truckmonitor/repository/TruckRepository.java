@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface TruckRepository extends CrudRepository<Truck, Long> {
 
-    Optional<Truck> findByLicensePlate(String license);
+    Optional<Truck> findByLicensePlate(String licensePlate);
 }
