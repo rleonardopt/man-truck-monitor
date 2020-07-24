@@ -47,13 +47,13 @@ public class TruckController {
 
     @GetMapping("")
     @ApiOperation(value = "Find a Truck info by its license plate", response = Truck.class)
-    public ResponseEntity<?> getTruckByLicense(@RequestParam String license) {
+    public ResponseEntity<?> getTruckByLicense(@RequestParam String licensePlate) {
         try {
-            Optional<Truck> optTruck = truckService.getTruckByLicensePlate(license);
+            Optional<Truck> optTruck = truckService.getTruckByLicensePlate(licensePlate);
             if (optTruck.isPresent()) {
                 return new ResponseEntity<>(optTruck.get(), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("No Truck found with a license plate: " + license, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("No Truck found with a license plate: " + licensePlate, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             return errorResponse();
