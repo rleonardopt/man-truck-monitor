@@ -19,6 +19,10 @@ public class TruckServiceImpl implements TruckService {
     @Autowired
     private TruckRepository truckRepository;
 
+    public TruckServiceImpl(TruckRepository truckRepository) {
+        this.truckRepository = truckRepository;
+    }
+
     @Override
     @Transactional
     public List<Truck> getAllTrucks() {

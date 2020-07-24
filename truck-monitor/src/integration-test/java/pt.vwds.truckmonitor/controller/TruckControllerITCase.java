@@ -1,4 +1,4 @@
-package pt.vwds.truckmonitor.integration;
+package pt.vwds.truckmonitor.controller;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TruckControllerTest extends CommonTest {
+public class TruckControllerITCase extends CommonITCase {
 
     private String baseURL;
 
@@ -70,11 +70,12 @@ public class TruckControllerTest extends CommonTest {
         assertEquals(truck.getLicensePlate(), response.getBody().getLicensePlate());
     }
 
+    @Test
     public void whenGetAllLocationsOfTruckById_thenReceiveLocationList() {
         Truck truck = saveSingleLocationOfTruck();
 
         ResponseEntity<List<TruckLocation>> response = this.restTemplate.exchange(
-                baseURL + "trucks/" + truck.getId(),
+                baseURL + "trucks/" + truck.getId() + "/locations",
                 HttpMethod.GET,
                 new HttpEntity<>(new HttpHeaders()),
                 new ParameterizedTypeReference<List<TruckLocation>>() {});
