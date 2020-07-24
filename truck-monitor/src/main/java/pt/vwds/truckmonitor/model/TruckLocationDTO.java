@@ -10,6 +10,9 @@ public class TruckLocationDTO {
     @ApiModelProperty(position = 2)
     private double gps_latitude;
 
+    public TruckLocationDTO() {
+    }
+
     public TruckLocationDTO(double gps_longitude, double gps_latitude) {
         this.gps_longitude = gps_longitude;
         this.gps_latitude = gps_latitude;

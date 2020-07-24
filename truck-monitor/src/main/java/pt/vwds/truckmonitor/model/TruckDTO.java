@@ -19,6 +19,9 @@ public class TruckDTO {
     @ApiModelProperty(position = 5)
     private String series;
 
+    public TruckDTO() {
+    }
+
     public TruckDTO(String vehicleType, String licensePlate, String make, String model, String series) {
         this.vehicleType = vehicleType;
         this.licensePlate = licensePlate;
