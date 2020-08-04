@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  truck-monitor-postgres:
+    image: postgres
+    container_name: truck-monitor-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=truck
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  truck-monitor-app:
+    build: ./truck-monitor
+    container_name: truck-monitor-app
+    environment:
+      - DB_SERVER=truck-monitor-postgres
+      - POSTGRES_DB=truck
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 8080:8080
+    links:
+      - truck-monitor-postgres
+
+  truck-monitor-ui:
+    build: ./truck-monitor-ui
+    container_name: truck-monitor-ui
+    ports:
+      - 4200:80
+    links:
+      - truck-monitor-app
